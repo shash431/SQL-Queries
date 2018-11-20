@@ -1,0 +1,27 @@
+ Which department pays the highest salary currently and who is the department manager?
+   select MAX(S.salary),D.dept_no,D.dept_department,DM.emp_no 
+   from departments D,dept_emp DE,dept_manager DM,salaries S
+   where S.emp_no=DE.emp_no AND DE.dept_no=D.dept_no
+   RESULT : 
+	158220	d009	Customer Service	110022
+	
+• How many employees are working in Human Resources Department currently?
+  select distinct count(*) AS Total_Employees_HR from departments D, dept_emp DE where D.dept_no=DE.dept_no and D.dept_name LIKE '%Human Resources%';
+
+• Who is currently the oldest employee of the company?
+
+    select E.emp_no,E.birth_date,E.first_name,E.last_name,E.gender
+    from employees E
+    where E.birth_date = (select min(E.birth_date) from employees E)  ;
+
+    SELECT E.emp_no,E.birth_date,E.first_name,E.last_name,E.gender ,E.hire_date FROM employees E
+    WHERE HIRE_DATE = (SELECT MIN(E.hire_date) FROM employees E) ;
+
+• What is the current average salary of Marketing Department?
+   select D.dept_name,avg(S.salary) as AVGSalary
+   from departments D, dept_emp DE,salaries S
+   WHERE DE.emp_no=S.emp_no AND D.dept_name LIKE '%Marketing%';
+
+• Who is currently the newest employee of the company?
+    SELECT E.emp_no,E.birth_date,E.first_name,E.last_name,E.gender ,E.hire_date FROM employees E
+    WHERE HIRE_DATE = (SELECT MAX(E.hire_date) FROM employees E) ;
